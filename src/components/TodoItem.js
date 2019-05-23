@@ -1,5 +1,8 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+
+import { deleteTodo, toggleTodo } from '../actions/todoActions';
 
 class TodoItemStyle {
   backgroundColor = '#f4f4f4'
@@ -30,12 +33,13 @@ const btnStyle = {
 export class TodoItem extends Component {
   getStyle = () => this.props.todo.completed ? completedStyle : notCompletedStyle;
   render() {
-    const { todo, toggleComplete, deleteTodo } = this.props;
-    const { id, title } = todo;
+    const { todo, deleteTodo, toggleTodo } = this.props;
+    let modifiedTodo = this.props.todos.find(t => t.id === todo.id);
+    const { id, completed, title } = modifiedTodo;
     return (
       <div style={this.getStyle()}>
         <p>
-          <input type="checkbox" onChange={toggleComplete.bind(this, id)} checked={todo.completed} /> {' '}
+          <input type="checkbox" onChange={toggleTodo.bind(this, id)} checked={completed} /> {' '}
           {title}
           <button style={btnStyle} onClick={deleteTodo.bind(this, id)}>x</button>
         </p>
@@ -45,7 +49,18 @@ export class TodoItem extends Component {
 }
 
 TodoItem.propTypes = {
-  todo: PropTypes.object.isRequired
+  todo: PropTypes.object.isRequired,
+  deleteTodo: PropTypes.func.isRequired,
+  toggleTodo: PropTypes.func.isRequired
 };
 
-export default TodoItem
+const mapDispatchToProps = {
+  deleteTodo,
+  toggleTodo
+};
+
+const mapStateToProps = state => ({
+  todos: state.todos.items
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(TodoItem);
