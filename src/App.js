@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 
 import './App.css';
 import About from './components/pages/About';
-import AddTodo from './components/AddTodo';
+import AddTodo from './components/AddTodoFunctionComponent';
 import Header from './components/layout/Header';
 import store from './store';
 import Todos from './components/Todos';
