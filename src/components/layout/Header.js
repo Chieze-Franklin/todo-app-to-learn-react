@@ -1,13 +1,20 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
+import { Consumer } from '../../context'
+
 export default function Header() {
   return (
-    <header style={headerStyle}>
-      <h1>TodoList</h1>
-      <Link to="/" style={linkStyle}>Home</Link> |
-      <Link to="/about" style={linkStyle}>About</Link>
-    </header>
+    <Consumer>
+      {value => {
+        const { appName, currentPage } = value;
+        return (<header style={headerStyle}>
+          <h1>{appName}</h1>
+          <Link to="/" style={currentPage === 'home' ? activeLinkStyle : linkStyle}>Home</Link> |&nbsp;
+          <Link to="/about" style={currentPage === 'about' ? activeLinkStyle : linkStyle}>About</Link>
+        </header>)
+      }}
+    </Consumer>
   )
 }
 
@@ -20,5 +27,10 @@ const headerStyle = {
 
 const linkStyle = {
   color: '#fff',
+  textDecoration: 'none'
+}
+
+const activeLinkStyle = {
+  color: '#00f',
   textDecoration: 'none'
 }

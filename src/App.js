@@ -9,21 +9,39 @@ import Header from './components/layout/Header';
 import store from './store';
 import Todos from './components/Todos';
 
+import { Provider as AppContextProvider, Consumer } from './context';
+
 class App extends Component {
+  state = {
+    appName: 'TodoList'
+  }
+
   render() {
     return (
       <Provider store={store}>
         <Router>
           <div className="App">
             <div className="container">
-              <Header />
-              <Route path="/" exact render={props => (
-                <React.Fragment>
-                  <AddTodo />
-                  <Todos />
-                </React.Fragment>
-              )} />
-              <Route path="/about" component={About} />
+              <AppContextProvider>
+                <Header />
+                <Route path="/" exact render={props => {
+                  return (<Consumer>
+                    {value => {
+                      const { currentPage, dispatch } = value;
+                      if (currentPage !== 'home') {
+                        dispatch({
+                          type: 'PAGE_CHANGED',
+                          payload: 'home'
+                        })
+                      }
+                      return (<React.Fragment>
+                        <AddTodo />
+                        <Todos />
+                      </React.Fragment>)
+                    }}
+                  </Consumer>)}} />
+                <Route path="/about" component={About} />
+              </AppContextProvider>
             </div>
           </div>
         </Router>
