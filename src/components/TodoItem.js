@@ -35,7 +35,7 @@ export class TodoItem extends Component {
   render() {
     const { todo, deleteTodo, toggleTodo } = this.props;
     let modifiedTodo = this.props.todos.find(t => t.id === todo.id);
-    const { id, completed, title } = modifiedTodo;
+    const { id, completed, title } = modifiedTodo || todo;
     return (
       <div style={this.getStyle()}>
         <p>
