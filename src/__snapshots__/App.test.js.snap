@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TodoItem renders correctly 1`] = `
+<div
+  style={
+    TodoItemNotCompletedStyle {
+      "backgroundColor": "#f4f4f4",
+      "borderBottom": "1px #ccc dotted",
+      "padding": "10px",
+      "textDecoration": "none",
+    }
+  }
+>
+  <p>
+    <input
+      checked={false}
+      onChange={[Function]}
+      type="checkbox"
+    />
+     
+     
+    Todo 1
+    <button
+      onClick={[Function]}
+      style={
+        Object {
+          "backgroundColor": "#ff0000",
+          "boarder": "none",
+          "borderRadius": "50%",
+          "color": "#ffffff",
+          "cursor": "pointer",
+          "float": "right",
+          "padding": "5px 9px",
+        }
+      }
+    >
+      x
+    </button>
+  </p>
+</div>
+`;
