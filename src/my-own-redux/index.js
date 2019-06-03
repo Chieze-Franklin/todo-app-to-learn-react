@@ -57,7 +57,7 @@ function withConsumer(InnerComponent) {
               getPropsFromDispatch[keys[i]] = (args) => {
                 const func = mapDispatchToProps[keys[i]];
                 const inner = func(args);
-                if (typeof inner === 'function') {
+                if (typeof inner === 'function') { 
                   inner(dispatch, state);
                 } else {
                   dispatch(inner);
