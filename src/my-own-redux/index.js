@@ -44,8 +44,8 @@ function withConsumer(InnerComponent) {
       return (<Consumer>
         {value => {
           const dispatch = value.dispatch;
-          const state = value;
-          //delete state.dispatch;
+          const state = {...value};
+          delete state.dispatch;
           let getPropsFromState = {};
           if (mapStateToProps) {
             getPropsFromState = mapStateToProps(state);
