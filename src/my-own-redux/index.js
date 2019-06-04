@@ -44,8 +44,8 @@ function withConsumer(InnerComponent) {
       return (<Consumer>
         {value => {
           const dispatch = value.dispatch;
-          const state = value;
-          //delete state.dispatch;
+          const state = {...value};
+          delete state.dispatch;
           let getPropsFromState = {};
           if (mapStateToProps) {
             getPropsFromState = mapStateToProps(state);
@@ -56,8 +56,12 @@ function withConsumer(InnerComponent) {
             for (let i = 0; i < keys.length; i++) {
               getPropsFromDispatch[keys[i]] = (args) => {
                 const func = mapDispatchToProps[keys[i]];
-                const innerFunc = func(args);
-                innerFunc(dispatch, state);
+                const inner = func(args);
+                if (typeof inner === 'function') {
+                  inner(dispatch, state);
+                } else {
+                  dispatch(inner);
+                }
               }
             }
           }
