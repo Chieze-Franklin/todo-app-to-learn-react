@@ -15,10 +15,6 @@ import { Provider as MyOwnProvider } from './my-own-redux';
 import store2 from './my-own-redux/store';
 
 class App extends Component {
-  state = {
-    appName: 'TodoList'
-  }
-
   render() {
     return (
       <Provider store={store}>
