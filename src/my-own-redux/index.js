@@ -45,7 +45,7 @@ function withConsumer(InnerComponent) {
         {value => {
           const dispatch = value.dispatch;
           const state = {...value};
-          delete state.dispatch;
+          // delete state.dispatch; // apparently it's ok to pass 'dispatch' to props
           let getPropsFromState = {};
           if (mapStateToProps) {
             getPropsFromState = mapStateToProps(state);
